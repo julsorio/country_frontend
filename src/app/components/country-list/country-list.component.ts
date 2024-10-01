@@ -29,8 +29,6 @@ export class CountryListComponent implements OnInit {
       });
   }
 
-  deleteCountry(id: number) {
-    this.countryService.deleteCountry(id);
-  }
+  
 
 }

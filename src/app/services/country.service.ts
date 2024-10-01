@@ -21,15 +21,15 @@ export class CountryService {
         return this.http.get<Country>(`${this.baseUrl}/country/${id}`);
     }
 
-    updateCountry(country: Country): Observable<Country>  {
-        return this.http.put<Country>(`${this.baseUrl}/country/${country.id}`, country, {headers: {'content-type': 'application/json'}} );
+    updateCountry(id: number, country: Country): Observable<Country>  {
+        return this.http.put<Country>(`${this.baseUrl}/country/${id}`, country, {headers: {'content-type': 'application/json'}} );
     }
 
     saveCountry(country: Country): Observable<Country>  {
         return this.http.post<Country>(`${this.baseUrl}/country`, country);
     }
 
-    deleteCountry(id: number): void {
-        this.http.delete(`${this.baseUrl}/country/${id}`);
+    deleteCountry(id: number): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/country/${id}`);
     }
 }

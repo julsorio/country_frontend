@@ -3,7 +3,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            <h2>{{ isEditMode ? 'Edit Country - {{country.name}}' : 'Add Country' }}</h2>
+            <h2>{{ isEditMode ? 'Edit Country' : 'Add Country' }}</h2>
           </div>
           <div class="card-body">
             <form #countryForm="ngForm" (ngSubmit)="saveCountry()">
@@ -12,12 +12,13 @@
                 <input type="text" id="id" name="id" class="form-control" [(ngModel)]="country.id" readonly>
               </div> -->
               <div class="form-group">
-                <label for="price">Name</label>
+                <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="form-control" [(ngModel)]="country.name"  required>
               </div>
               <button type="submit" class="btn btn-primary">Save</button>
               <a routerLink="/" class="btn btn-secondary ml-2">Cancel</a>
             </form>
+            <button type="button" class="btn btn-primary" *ngIf="isEditMode" (click)="deleteCountry()" >Delete</button>
           </div>
         </div>
       </div>

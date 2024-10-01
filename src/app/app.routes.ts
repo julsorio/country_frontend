@@ -5,5 +5,6 @@ import { CountryFormComponent } from './components/country-form/country-form.com
 export const routes: Routes = [
     {path: '', component: CountryListComponent},
     {path: 'edit/:id', component: CountryFormComponent},
-    {path: 'add', component: CountryFormComponent}
+    {path: 'add', component: CountryFormComponent},
+    {path: 'delete/:id', component: CountryFormComponent}
 ];

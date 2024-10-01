@@ -14,8 +14,7 @@ import { Country } from '../../model/country.model';
 })
 export class CountryFormComponent implements OnInit {
 
-  country: Country = {
-    id: 0,
+  country: any = {
     name: ''
   }
 
@@ -27,9 +26,15 @@ export class CountryFormComponent implements OnInit {
 
   ngOnInit(): void {
     const id: any = this.route.snapshot.paramMap.get('id');
-    this.getCountryById(id);
+    console.log("init id " + id);
+    if(id != null) {
+      this.getCountryById(id);
+      this.isEditMode = true;
+    } else {
+      this.isEditMode = false;
+    }
 
-    this.isEditMode = true;
+    console.log("edit" + this.isEditMode);
 
   }
 
@@ -53,22 +58,49 @@ export class CountryFormComponent implements OnInit {
 
   saveCountry(): void {
     if(this.isEditMode) {
-      this.countryService.updateCountry(this.country).subscribe(
+      this.countryService.updateCountry(this.country.id, this.country).subscribe(
         {
-          next: () => {
-            console.log('pais actualizado');
+          next: (res) => {
+            console.log(res);
           },
-          error: () => {
-            console.log('error al guardar los cambios');
+          error: (e) => {
+            console.log(e);
           }
         });
 
     } else {
-      this.countryService.saveCountry(this.country).subscribe(() => {
-        
+      this.countryService.saveCountry(this.country).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => {
+          console.log(e);
+        }
       })
     }
 
+    
+    this.router.navigate(['']);
+  }
+
+  deleteCountry() {
+    console.log("delete " + this.country.id);
+    /*this.countryService.deleteCountry(id).subscribe({
+      next: () => {
+
+      },
+      error: () => {
+
+      }
+    });*/
+    this.countryService.deleteCountry(this.country.id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
     
     this.router.navigate(['']);
   }
